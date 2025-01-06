@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafc;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select, .form-group input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group select:focus, .form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #4CAF50; /* green color for positive results */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>House Price Prediction</h2>
+        <form action="/predict" id="houseForm" method="post">
+            <div class="form-group">
+                <label for="posted_by">POSTED BY:</label>
+                <select id="posted_by" name="posted_by" required>
+                    <option value="0">Owner</option>
+                    <option value="1">Dealer</option>
+                    <option value="2">Builder</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="under_construction">UNDER CONSTRUCTION:</label>
+                <select id="under_construction" name="under_construction" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bhk_no">BHK or RK no:</label>
+                <input type="text" id="bhk_no" placeholder="Enter number of BHK" name="bhk_no" required>
+            </div>
+            <div class="form-group">
+                <label for="bhk_or_rk">PROPERTY TYPE (BHK / RK):</label>
+                <select id="bhk_or_rk" name="bhk_or_rk" required>
+                    <option value="0">BHK</option>
+                    <option value="1">RK</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="square_ft"> PROPERTY AREA :</label>
+                <input type="text" id="square_ft" placeholder="Enter area in sq ft" name="square_ft" required>
+            </div>
+            <div class="form-group">
+                <label for="ready_to_move">READY TO MOVE:</label>
+                <select id="ready_to_move" name="ready_to_move" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="resale">RESALE:</label>
+                <select id="resale" name="resale" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="longitude">LONGITUDE:</label>
+                <input type="text" id="longitude" placeholder="Enter longitude" name="longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="latitude">LATITUDE:</label>
+                <input type="text" id="latitude" placeholder="Enter latitude" name="latitude" required>
+            </div>
+            <button type="submit" class="btn"> Predict the Price</button>
+
+        </form>
+
+        {% if prediction %}
+        <div class="result">The price of property may be: ₹{{ prediction }} lacs</div>
+        {% endif %}
+
+        {% if error %}
+        <div class="result" style="color: red;">Error: {{ error }}</div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
