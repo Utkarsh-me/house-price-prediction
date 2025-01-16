@@ -5,8 +5,6 @@ import pickle
 from sqlalchemy import create_engine
 import pymysql
 
-df = pd.read_csv('House_price_india.csv')
-
 model = pickle.load(open('new_house.pkl', 'rb'))
 
 app = Flask(__name__)
